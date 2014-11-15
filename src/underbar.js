@@ -367,7 +367,6 @@ var _ = {};
 
     var newArray = array.slice();
     var tempArray;
-    //console.log(newArray);
     for (var i = newArray.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * i);
       tempArray = newArray[j];
