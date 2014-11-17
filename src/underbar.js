@@ -391,6 +391,18 @@ var _ = {};
   _.sortBy = function(collection, iterator) {
       var arr = collection.slice(0);
       // loop through collection and sort based on item
+      if (typeof iterator === "function") {
+        _.each(collection, function(item){
+          var objArr = [];
+          if (typeof item === "object") {
+            for (var key in item) {
+              //console.log(item[key]);
+              objArr.push(item[key]);
+              //console.log(objArr);
+            }
+          }
+        });
+      }
       if (typeof iterator === "string") {
         arr.sort(function(x, y){
             return x.length - y.length;
@@ -399,7 +411,7 @@ var _ = {};
       else {
         arr.sort(function(x, y){
           return x - y;
-        })
+        });
       }
       return arr;
   };
