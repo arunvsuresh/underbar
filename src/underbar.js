@@ -478,6 +478,29 @@ var _ = {};
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    
+    var args = arguments;
+    var firstArr = args[0];
+    var arr = [];
+
+    var longest = _.reduce(args, function(a, b){
+      if (a.length > b.length) {
+        return a;
+      } else {
+        return b;
+      }
+    });
+
+    for (var i = 1; i < args.length; i++) {
+      for (var j = 0; j < longest.length; j++) {
+          if ((_.contains(firstArr, args[i][j]))) {
+            arr = firstArr.splice(_.indexOf(firstArr, args[i][j]), 1);
+          }  
+      }
+      
+    }
+
+    return firstArr;
   };
 
 
