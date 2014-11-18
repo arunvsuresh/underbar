@@ -412,7 +412,27 @@ var _ = {};
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var zippedArray = [];
 
+    // returns longest array from arguments
+    var longest = _.reduce(args, function(a, b){
+      if (a.length > b.length) {
+        return a;
+      } else {
+        return b;
+      }
+     });
+  
+    // loop through longest array no. of times
+    for (var i = 0; i < longest.length; i++) {
+      zippedArray.push([]);
+      for (var j = 0; j < longest.length; j++) {
+        zippedArray[i][j] = args[j][i];
+        //console.log(zippedArray);
+      }
+    }
+    return zippedArray;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -426,6 +446,11 @@ var _ = {};
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+    var args = Array.prototype.slice.call(arguments);
+    //console.log(args);
+    // for (var i = 0; i < args.length; i++) {
+    //   if (_.indexOf(args[i]))
+    // }
   };
 
   // Take the difference between one array and a number of other arrays.
