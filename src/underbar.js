@@ -392,16 +392,14 @@ var _ = {};
       // item[iterator]
       // don't need to re-use each function here
       // sort iterates as well
-
       var arr = collection.slice(0);
-      
       // length test case
       if (typeof iterator === "string") {
         arr.sort(function(a, b){
           return a[iterator] - b[iterator];
         });
       } else {
-        arr.sort(function(x, y){
+        arr = collection.sort(function(x, y){
           return iterator(x) - iterator(y);
         });
       }
@@ -421,16 +419,8 @@ var _ = {};
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nestedArray) {
-    var result = [];
-      for (var i = 0; i < nestedArray.length; i++) {
-        if (Array.isArray(nestedArray[i])) {
-          _.flatten(nestedArray[i], result);
-        } else {
-          result.push(nestedArray[i]);
-        }
-      }
-      return result;
+  _.flatten = function(nestedArray, result) {
+    
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
