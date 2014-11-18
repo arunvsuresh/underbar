@@ -389,28 +389,20 @@ var _ = {};
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+      // item[iterator]
+      // don't need to re-use each function here
+      // sort iterates as well
+
       var arr = collection.slice(0);
-      // loop through collection and sort based on item
-      if (typeof iterator === "function") {
-        _.each(collection, function(item){
-          var objArr = [];
-          if (typeof item === "object") {
-            for (var key in item) {
-              //console.log(item[key]);
-              objArr.push(item[key]);
-              //console.log(objArr);
-            }
-          }
-        });
-      }
+      
+      // length test case
       if (typeof iterator === "string") {
-        arr.sort(function(x, y){
-            return x.length - y.length;
+        arr.sort(function(a, b){
+          return a[iterator] - b[iterator];
         });
-      }
-      else {
+      } else {
         arr.sort(function(x, y){
-          return x - y;
+          return iterator(x) - iterator(y);
         });
       }
       return arr;
@@ -422,13 +414,23 @@ var _ = {};
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nestedArray, result) {
+  _.flatten = function(nestedArray) {
+    var result = [];
+      for (var i = 0; i < nestedArray.length; i++) {
+        if (Array.isArray(nestedArray[i])) {
+          _.flatten(nestedArray[i], result);
+        } else {
+          result.push(nestedArray[i]);
+        }
+      }
+      return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
