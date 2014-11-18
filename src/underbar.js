@@ -424,13 +424,14 @@ var _ = {};
       }
      });
   
-    // loop through longest array no. of times
+    // loop through longest.length number of times
     for (var i = 0; i < longest.length; i++) {
-      zippedArray.push([]);
+      var innerArray = [];
       for (var j = 0; j < longest.length; j++) {
-        zippedArray[i][j] = args[j][i];
+        innerArray.push(args[j][i]);
         //console.log(zippedArray);
       }
+      zippedArray.push(innerArray);
     }
     return zippedArray;
   };
@@ -448,9 +449,30 @@ var _ = {};
   _.intersection = function() {
     var args = Array.prototype.slice.call(arguments);
     //console.log(args);
-    // for (var i = 0; i < args.length; i++) {
-    //   if (_.indexOf(args[i]))
-    // }
+    var longest = _.reduce(args, function(a, b){
+      if (a.length > b.length) {
+        return a;
+      } else {
+        return b;
+      }
+    });
+
+    var shortest = _.reduce(args, function(a, b){
+      if (a.length < b.length) {
+        return a;
+      } else {
+        return b;
+      }
+    });
+
+    var arr = [];
+    // check if items in shortest are in longest
+    for (var i = 0; i < longest.length; i++) {
+      if (_.contains(longest, shortest[i])) {
+        arr.push(shortest[i]);
+      }
+    }
+    return arr;
   };
 
   // Take the difference between one array and a number of other arrays.
