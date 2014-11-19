@@ -441,7 +441,19 @@ var _ = {};
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
-    
+    var res = [];
+    var flatten = function(arr) {
+      //for each item in array
+      _.each(arr, function(item){
+        if (Array.isArray(item)){
+          flatten(item);
+        } else {
+          res.push(item);
+        }
+      });
+    }
+    flatten(nestedArray);
+    return res; 
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
@@ -478,7 +490,7 @@ var _ = {};
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
-    
+
     var args = arguments;
     var firstArr = args[0];
     var arr = [];
