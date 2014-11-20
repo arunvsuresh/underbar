@@ -221,6 +221,7 @@ var _ = {};
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    // !every, pass it into the callback
     // TIP: There's a very clever way to re-use every() here.
     return _.reduce(collection, function(prevValue, item){
       if (iterator === undefined) {
@@ -526,7 +527,65 @@ var _ = {};
   //
   // See the Underbar readme for details.
   _.throttle = function(func, wait) {
-  };
+
+    var args = arguments;
+    var isCalled = false;                 
+    return function () {              
+        if (isCalled) { 
+            setTimeout(function() {
+              isCalled = true;
+            }, wait);                
+        } else {
+          func.apply(this, args);
+        } 
+      }            
+            
+    };
+
+
+    // var args = arguments;
+    // // var counter = 1;
+
+    // // var timeNow = Date.now();
+
+    // // // timeElapsed since call of function;
+    // // var timeElapsed = timeNow + wait;
+
+    // // console.log(timeElapsed - timeNow);
+
+    // // set a flag seeing if function was called or not (initially set to false)
+    // var isCalled = null;
+
+    // if (isCalled) {
+    //   //isCalled = false;
+    //   clearTimeout(func, wait);
+    // } else {
+    //   isCalled = func.apply(this, args);
+    //   console.log(isCalled);
+    //   return setTimeout(isCalled, wait);
+    // }
+
+
+
+
+
+    // return recursive_function() {
+      // keep track of how many function calls are made, add to counter
+      
+      // call function again 
+    //}
+
+    // if (timeNow === timeElapsed) {
+    //   counter--;
+    //   // call the function
+    //   return function() {
+    //     // if func has been called
+    //       // store in counter
+    //     // else 
+    //       // func.apply(this, args);
+    //   }
+    // }
+  
 
 }).call(this);
 /*jshint eqnull:true, expr:true*/

@@ -690,5 +690,5 @@ describe("throttle", function() {
       expect(results[5]).to.eql(3);
       done();
     }, 192);
-  })
+  });
 });
