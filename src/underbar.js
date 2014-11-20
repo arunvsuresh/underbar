@@ -460,33 +460,19 @@ var _ = {};
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
-    var args = Array.prototype.slice.call(arguments);
-    //console.log(args);
-    var longest = _.reduce(args, function(a, b){
-      if (a.length > b.length) {
-        return a;
-      } else {
-        return b;
-      }
-    });
+      var args = arguments;
+      var controlArray = args[0];
+      var res = [];
 
-    var shortest = _.reduce(args, function(a, b){
-      if (a.length < b.length) {
-        return a;
-      } else {
-        return b;
+      for(var i = 1; i < args.length; i++){
+        for(var j = 0; j < controlArray.length; j++){
+          if(_.contains(controlArray, args[i][j])){
+            res.push(args[i][j]);
+          }
+        }
       }
-    });
-
-    var arr = [];
-    // check if items in shortest are in longest
-    for (var i = 0; i < longest.length; i++) {
-      if (_.contains(longest, shortest[i])) {
-        arr.push(shortest[i]);
-      }
-    }
-    return arr;
-  };
+      return res;
+};
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
